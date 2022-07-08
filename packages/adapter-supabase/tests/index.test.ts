@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { runBasicTests } from "../../../basic-tests"
+import { runBasicTests } from "@next-auth/adapter-test"
 import { formatter, SupabaseAdapter } from "../src"
 import { createClient } from "@supabase/supabase-js"
 import {
