@@ -32,15 +32,16 @@ import PatreonProvider from "next-auth/providers/patreon"
 import TraktProvider from "next-auth/providers/trakt"
 import WorkOSProvider from "next-auth/providers/workos"
 import BoxyHQSAMLProvider from "next-auth/providers/boxyhq-saml"
+import WikimediaProvider from "next-auth/providers/wikimedia"
 
 // TypeORM
-import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter"
-const adapter = TypeORMLegacyAdapter({
-  type: "sqlite",
-  name: "next-auth-test-memory",
-  database: "./typeorm/dev.db",
-  synchronize: true,
-})
+// import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter"
+// const adapter = TypeORMLegacyAdapter({
+//   type: "sqlite",
+//   name: "next-auth-test-memory",
+//   database: "./typeorm/dev.db",
+//   synchronize: true,
+// })
 
 // // Prisma
 // import { PrismaAdapter } from "@next-auth/prisma-adapter"
@@ -64,7 +65,7 @@ const adapter = TypeORMLegacyAdapter({
 // }
 
 export const authOptions: NextAuthOptions = {
-  adapter,
+  // adapter,
   providers: [
     // E-mail
     // Start fake e-mail server with `npm run start:email`
@@ -225,9 +226,13 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.WORKOS_SECRET,
     }),
     BoxyHQSAMLProvider({
-      issuer: process.env.BOXYHQSAML_ISSUER,
+      issuer: process.env.BOXYHQSAML_ISSUER ?? "https://example.com",
       clientId: process.env.BOXYHQSAML_ID,
       clientSecret: process.env.BOXYHQSAML_SECRET,
+    }),
+    WikimediaProvider({
+      clientId: process.env.WIKIMEDIA_ID,
+      clientSecret: process.env.WIKIMEDIA_SECRET,
     }),
   ],
   debug: true,
